@@ -1,4 +1,5 @@
 package edu.kit.informatik.ui.parameter;
+import edu.kit.informatik.util.exception.ParameterException;
 
 /**
  * Description of a parameter, a parameter includes a regex-pattern and a method to generate the correct data.

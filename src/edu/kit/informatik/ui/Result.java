@@ -1,4 +1,4 @@
-package edu.kit.informatik.ui.session;
+package edu.kit.informatik.ui;
 
 /**
  * Result of a command-execution
@@ -37,6 +37,12 @@ public class Result {
     public boolean isSuccess() {
         return success;
     }
+
+    /**
+     * Check if the result has a message
+     * @return true if result has a message
+     */
+    public boolean hasMessage() { return resultMessage != null; }
 
     /**
      * Some executions may have a result-message
