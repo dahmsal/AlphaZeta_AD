@@ -1,6 +1,7 @@
 package edu.kit.informatik.util;
 
-import edu.kit.informatik.game.Player;
+import edu.kit.informatik.game.logic.Player;
+import edu.kit.informatik.game.logic.Dice;
 import edu.kit.informatik.util.exception.ParameterException;
 import edu.kit.informatik.util.math.Math;
 
@@ -10,6 +11,7 @@ public class GameSettings {
     private final int boardSize;
     private final long seed;
     private final int containers;
+    private final Dice dice;
 
     public GameSettings(String[] args) throws ParameterException {
         try {
@@ -22,6 +24,7 @@ public class GameSettings {
         if (!Math.isOdd(boardSize) || containers > 3) {
             throw new ParameterException("wrong inline arguments!");
         }
+        this.dice = new Dice(this.seed);
     }
 
     public int getBoardSize() {
@@ -47,4 +50,6 @@ public class GameSettings {
     public List<Player> getPlayers() throws  ParameterException {
         return List.of(playerAlpha(), playerZeta());
     }
+
+    public Dice getDice() { return  this.dice; }
 }

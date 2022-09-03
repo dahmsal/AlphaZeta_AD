@@ -1,7 +1,7 @@
 package edu.kit.informatik.ui.session.initialisation;
 
-import edu.kit.informatik.game.AlphaZeta;
-import edu.kit.informatik.game.Player;
+import edu.kit.informatik.game.logic.AlphaZeta;
+import edu.kit.informatik.game.logic.Player;
 import edu.kit.informatik.game.resources.board.TileTypes;
 import edu.kit.informatik.game.resources.fleet.Spaceship;
 import edu.kit.informatik.ui.Result;

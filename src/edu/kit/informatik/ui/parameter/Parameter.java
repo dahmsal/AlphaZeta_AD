@@ -8,7 +8,7 @@ import edu.kit.informatik.util.exception.ParameterException;
  * @version 1.0
  * @param <T> Data-Type of the object the parameter generates
  */
-public interface Parameter <T>{
+public interface Parameter<T> {
 
     /**
      * Get the regex-pattern of the parameter

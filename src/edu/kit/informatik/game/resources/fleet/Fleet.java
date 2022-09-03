@@ -41,7 +41,16 @@ public class Fleet {
         if (result != null) {
             return result;
         } else {
-            throw new ParameterException("Battleship: " + id + "could not be found");
+            throw new ParameterException("Battleship " + id + " could not be found");
+        }
+    }
+
+    public Spaceship getSpaceship(char id) throws ParameterException {
+        Spaceship result = this.fleet.stream().filter(spaceship -> spaceship.getId() == id).findFirst().orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new ParameterException("Spaceship " + id + " could not be found");
         }
     }
 
@@ -52,6 +61,10 @@ public class Fleet {
     public List<Battleship> getAllBattleships() {
         return this.fleet.stream().filter(spaceship -> spaceship.getClass().equals(Battleship.class))
                 .map(spaceship-> (Battleship) spaceship).collect(Collectors.toList());
+    }
+
+    public List<Spaceship> getAllSpaceships() {
+        return this.fleet;
     }
 
     /**

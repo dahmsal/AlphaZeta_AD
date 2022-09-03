@@ -1,5 +1,11 @@
 package edu.kit.informatik.util.math;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import static java.lang.Math.abs;
+
 public class Vector2D {
     private int x;
     private int y;
@@ -47,5 +53,35 @@ public class Vector2D {
         return getVector(maxID - vector2D.y, maxID - vector2D.x);
     }
 
+    /**
+     * Get the direct neighbors of a vector as a list of vectors (North, East, South, West)
+     * @param vector2D Object of interest
+     * @return list of vectors (North, East, South, West) as Vector2D
+     */
+    public static List<Vector2D> getDirectNeighbors(Vector2D vector2D) {
+        List<Vector2D> vectorList = new ArrayList<>();
+        int x = vector2D.getX();
+        int y = vector2D.getY();
+        //North
+        vectorList.add(Vector2D.getVector(x, y - 1));
+        //East
+        vectorList.add(Vector2D.getVector(x + 1, y));
+        //South
+        vectorList.add(Vector2D.getVector(x, y + 1));
+        //West
+        vectorList.add(Vector2D.getVector(x - 1, y));
+        return  vectorList;
+    }
+
+    public static int manhattanDistance(Vector2D vectorA, Vector2D vectorB) {
+        int sum = 0;
+        sum += abs(vectorA.getX() - vectorB.getX());
+        sum += abs(vectorA.getY() - vectorB.getY());
+        return sum;
+    }
+
+    public static Vector2D subVector(Vector2D vectorA, Vector2D vectorB) {
+        return new Vector2D(vectorB.getX() - vectorA.getX(),  vectorB.getY() - vectorA.getY());
+    }
 
 }

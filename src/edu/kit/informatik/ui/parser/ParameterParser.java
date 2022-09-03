@@ -20,6 +20,8 @@ public class ParameterParser {
         StringTokenizer stringTokenizer = new StringTokenizer(inputString, delimiter);
         for (Parameter<?> parameter: parsable.getParameters()) {
             parameter.clearParameter();
+        }
+        for (Parameter<?> parameter: parsable.getParameters()) {
             Pattern pattern = Pattern.compile(parameter.getPattern(), Pattern.CASE_INSENSITIVE);
             if (stringTokenizer.hasMoreTokens()) {
                 String token = stringTokenizer.nextToken();

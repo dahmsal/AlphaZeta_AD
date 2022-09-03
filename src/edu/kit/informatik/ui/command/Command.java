@@ -26,5 +26,7 @@ public abstract class Command implements Parsable {
     @Override
     public abstract Result execute();
 
+    public abstract String getHelpText();
+
 }
 

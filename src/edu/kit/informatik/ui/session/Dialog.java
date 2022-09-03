@@ -1,6 +1,6 @@
 package edu.kit.informatik.ui.session;
 
-import edu.kit.informatik.game.AlphaZeta;
+import edu.kit.informatik.game.logic.AlphaZeta;
 import edu.kit.informatik.ui.Result;
 import edu.kit.informatik.ui.command.Command;
 import edu.kit.informatik.ui.command.Quit;
@@ -8,7 +8,6 @@ import edu.kit.informatik.ui.parameter.Parameter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public abstract class Dialog {
     private final AlphaZeta currentGame;

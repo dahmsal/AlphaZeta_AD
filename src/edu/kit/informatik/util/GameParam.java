@@ -1,5 +1,7 @@
 package edu.kit.informatik.util;
 
+import java.util.List;
+
 public class GameParam {
 
     private static final int MAX_MODULE_COUNT = 4;
@@ -33,4 +35,11 @@ public class GameParam {
         return FLEET_SIZE;
     }
 
+    public static List<String> gameModules() {
+        return List.of("RAILGUN", "SWORD", "SHIELD", "SENSOR", "PROPULSION");
+    }
+
+    public static List<String> gameActions() {
+        return List.of("MOVE", "PROPEL", "STRIKE", "MARK", "RAMM", "LONGSHOT");
+    }
 }

@@ -1,4 +1,4 @@
-package edu.kit.informatik.game;
+package edu.kit.informatik.game.logic;
 
 import edu.kit.informatik.game.resources.fleet.Fleet;
 import edu.kit.informatik.util.exception.ParameterException;

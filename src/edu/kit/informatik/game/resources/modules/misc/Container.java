@@ -1,5 +1,6 @@
 package edu.kit.informatik.game.resources.modules.misc;
 
+import edu.kit.informatik.game.logic.actions.Action;
 import edu.kit.informatik.game.resources.modules.Module;
 import edu.kit.informatik.game.resources.modules.ModuleType;
 
@@ -10,18 +11,19 @@ import java.util.List;
  * @author uppyo
  * @version 1.0
  */
-public class Container implements Module {
+public class Container extends Module {
     private static final String NAME = "CONTAINER";
     private static final ModuleType TYPE = ModuleType.MISC;
 
-    @Override
-    public String getName() {
-        return NAME;
+    public Container() {
+        super();
+        List<Action> actions = List.of();
+        setActions(actions);
     }
 
     @Override
-    public List<String> getActions() {
-        return List.of();
+    public String toString() {
+        return NAME;
     }
 
     @Override
@@ -29,8 +31,4 @@ public class Container implements Module {
         return List.of(TYPE);
     }
 
-    @Override
-    public boolean isActive() {
-        return false;
-    }
 }

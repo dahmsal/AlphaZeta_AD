@@ -29,22 +29,22 @@ public final class ShipConfigurator {
                 case WEAPON:
                     if (battleship.getWeaponCount() == GameParam.getMaxWeaponCount()) {
                         battleship.resetModules();
-                        throw new ParameterException("Module: " + module.getName()
+                        throw new ParameterException("Module: " + module.toString()
                                 + " could not be added. The ship has no more weapon slots!");
                     }
                     break;
                 case SHIP_UNIQUE:
-                    if (battleship.moduleExists(module.getName())) {
+                    if (battleship.moduleExists(module.toString())) {
                         battleship.resetModules();
-                        throw new ParameterException("Module: " + module.getName()
+                        throw new ParameterException("Module: " + module.toString()
                                 + " can only be added once!");
                     }
                     break;
                 case FLEET_UNIQUE:
                     for (Battleship shipsInFleet: fleet.getAllBattleships()) {
-                        if (shipsInFleet.moduleExists(module.getName())) {
+                        if (shipsInFleet.moduleExists(module.toString())) {
                             battleship.resetModules();
-                            throw new ParameterException("Module: " + module.getName()
+                            throw new ParameterException("Module: " + module.toString()
                                     + " already exist in the fleet!");
                         }
                     }

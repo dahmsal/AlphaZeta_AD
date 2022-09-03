@@ -21,6 +21,7 @@ public class Tile {
     public Tile(Vector2D position, TileTypes tileType) {
         this.tileType = tileType;
         this.position = position;
+        this.spaceshipOnTile = null;
     }
 
     /**
@@ -62,6 +63,7 @@ public class Tile {
     public void setSpaceship(Spaceship spaceship) {
         this.tileType = TileTypes.SPACESHIP;
         this.spaceshipOnTile = spaceship;
+        spaceship.setPosition(this.position);
     }
 
     /**

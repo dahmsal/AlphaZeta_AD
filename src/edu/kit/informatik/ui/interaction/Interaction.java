@@ -25,4 +25,5 @@ public abstract class Interaction implements Parsable {
 
     @Override
     public abstract Result execute();
+
 }

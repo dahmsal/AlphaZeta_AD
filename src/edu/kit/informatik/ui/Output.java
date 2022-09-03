@@ -13,6 +13,10 @@ public class Output {
     }
 
     public static void printResult(Result result) {
+        if (result == null) {
+            printError("no valid command was entered!");
+            return;
+        }
         if (result.hasMessage()) {
             if (result.isSuccess()) {
                 printMessage(result.getResultMessage());
@@ -21,5 +25,6 @@ public class Output {
             }
         }
     }
+
 
 }

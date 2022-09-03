@@ -1,12 +1,19 @@
 package edu.kit.informatik.ui.session;
 
-import edu.kit.informatik.game.AlphaZeta;
-import edu.kit.informatik.game.Player;
+import edu.kit.informatik.game.logic.AlphaZeta;
+import edu.kit.informatik.game.logic.Player;
 import edu.kit.informatik.ui.Output;
 import edu.kit.informatik.ui.Result;
+import edu.kit.informatik.ui.command.ActionsCommand;
+import edu.kit.informatik.ui.command.BoardCommand;
 import edu.kit.informatik.ui.command.Command;
+import edu.kit.informatik.ui.command.EndTurnCommand;
+import edu.kit.informatik.ui.command.FleetCommand;
+import edu.kit.informatik.ui.command.Help;
 import edu.kit.informatik.ui.command.Quit;
+import edu.kit.informatik.ui.interaction.ShipAction;
 import edu.kit.informatik.ui.parser.CommandParser;
+import edu.kit.informatik.ui.session.gameplay.PlayerTurn;
 import edu.kit.informatik.ui.session.initialisation.BoardInitDialog;
 import edu.kit.informatik.ui.session.initialisation.FleetInitDialog;
 
@@ -46,6 +53,10 @@ public class Session {
         return running;
     }
 
+    public Dialog getActiveDialog() {
+        return activeDialog;
+    }
+
     /**
      * quit a session by setting "running" as false
      */
@@ -59,37 +70,51 @@ public class Session {
     public void runSession() {
         Output.printMessage(WELCOME);
         // initialise fleets
-        /**
-        for (Player player: currentGame.getPlayers()) {
-            if (this.running) {
-                this.activeDialog = new FleetInitDialog(player, currentGame, this);
-                runDialog();
-            }
-        }**/
-        if (this.running) {
-            this.activeDialog = new BoardInitDialog(currentGame, this);
+        for (Player player: this.currentGame.getPlayers()) {
+            this.activeDialog = new FleetInitDialog(player, this.currentGame, this);
             runDialog();
         }
-        do {
+        //initialise board
+        this.activeDialog = new BoardInitDialog(currentGame, this);
+        runDialog();
 
+        //run the game
+        this.commandList.add(new BoardCommand(this.currentGame.getBoard()));
+        this.commandList.add(new FleetCommand(this.currentGame.getPlayers()));
+        this.commandList.add(new ActionsCommand(this.currentGame));
+        this.commandList.add(new EndTurnCommand(this));
+        this.commandList.add(new Help(this.commandList));
 
-        } while (this.running);
+        while (this.running) {
+            List<Player> players = new ArrayList<>(this.currentGame.getPlayers());
+            for (Player player: players) {
+                this.activeDialog = new PlayerTurn(player, this.currentGame, this);
+                runDialog();
+            }
+        }
     }
 
     private void runDialog() {
-        Output.printMessage(this.activeDialog.getInitialMessage());
-        do {
+        if (this.running) {
+            Output.printMessage(this.activeDialog.getInitialMessage());
+        }
+        while (!activeDialog.isFinished() && this.running) {
             Result inputResult = null;
             Output.printMessage(this.activeDialog.getDialogMessage());
-            String userInput = this.scanner.nextLine();
+            String userInput = null;
+            if(!activeDialog.isFinished()) {
+                userInput = this.scanner.nextLine();
+            }
             inputResult = CommandParser.processCommand(userInput, this.commandList);
             // if no registered command was called proceed with dialog
             if (inputResult == null) {
                 inputResult = this.activeDialog.executeStep(userInput);
             }
             Output.printResult(inputResult);
-        } while (!activeDialog.isFinished() && this.running);
+        }
     }
 
-
+    public void setActiveDialog(Dialog activeDialog) {
+        this.activeDialog = activeDialog;
+    }
 }

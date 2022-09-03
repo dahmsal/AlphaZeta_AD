@@ -1,6 +1,6 @@
 package edu.kit.informatik.ui.interaction;
 
-import edu.kit.informatik.game.AlphaZeta;
+import edu.kit.informatik.game.logic.AlphaZeta;
 import edu.kit.informatik.game.resources.fleet.Spaceship;
 import edu.kit.informatik.ui.Result;
 import edu.kit.informatik.ui.parameter.BoardParameter;
@@ -30,28 +30,33 @@ public class BoardInit extends Interaction {
 
     @Override
     public Result execute() {
-        if (!boardParam.hasValue()) {
+        if (!this.boardParam.hasValue()) {
             return new Result(false, "board has no value!");
         }
-        int boardFields = currentGame.getCurrentGameSettings().getBoardSize()
-                * currentGame.getCurrentGameSettings().getBoardSize();
-        if (boardParam.getValue().size() != boardFields) {
+        int boardFields = this.currentGame.getCurrentGameSettings().getBoardSize()
+                * this.currentGame.getCurrentGameSettings().getBoardSize();
+        if (this.boardParam.getValue().size() != boardFields) {
             String message = "the input has to be ";
             message += boardFields;
-            message += " characters long, " + boardParam.getValue().size() + " were given!";
+            message += " characters long, " + this.boardParam.getValue().size() + " were given!";
             return new Result(false, message);
         }
-        currentGame.getBoard().configureBoard(boardParam.getValue(), getShipList(boardParam.getShipID()));
-        if (!currentGame.getBoard().validateBoard()) {
+        this.currentGame.getBoard().
+                configureBoard(this.boardParam.getValue(), getShipList(this.boardParam.getShipID()));
+        if (!this.currentGame.getBoard().validateSymmetrical()) {
             return new Result(false, "the configured board is not mirrored!");
         }
-        return new Result(true, currentGame.getBoard().toString());
+        if (!this.currentGame.getBoard().validateIntegrity()) {
+            return new Result(false, "a tile is surrounded by cover!");
+        }
+        return new Result(true);
     }
+
 
     private List<Spaceship> getShipList(List<Character> idList) {
         List<Spaceship> returnList = new ArrayList<>();
         for (char c : idList) {
-            returnList.add(currentGame.getSpaceship(c));
+            returnList.add(this.currentGame.getSpaceship(c));
         }
         return returnList;
     }

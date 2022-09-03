@@ -31,6 +31,6 @@ public class Battleship extends Spaceship  {
      * @return true if moduleName matches any module previously added to the ship
      */
     public boolean moduleExists(String moduleName) {
-        return this.getModules().stream().anyMatch(module -> module.getName().equals(moduleName));
+        return this.getModules().stream().anyMatch(module -> module.toString().equals(moduleName));
     }
 }

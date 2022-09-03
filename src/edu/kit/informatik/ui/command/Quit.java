@@ -11,12 +11,23 @@ import java.util.List;
  * @author uppyo
  * @version 1.0
  */
-public class Quit extends Command{
-    private final Session session;
+public class Quit extends Command {
     private static final String PATTERN = "^quit";
+    private static final String HELP_TEXT = "QUIT - quits the game";
+    private final Session session;
 
+
+    /**
+     * Initialise the quit-command by saving the session
+     * @param session current session, which should be able to quit using this command
+     */
     public Quit(Session session) {
         this.session = session;
+    }
+
+    @Override
+    public String getHelpText() {
+        return HELP_TEXT;
     }
 
     @Override

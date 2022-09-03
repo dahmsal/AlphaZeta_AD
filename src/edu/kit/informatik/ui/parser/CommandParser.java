@@ -25,6 +25,11 @@ public class CommandParser {
      * @return Result of execution, is NULL if no command was called
      */
     public static Result processCommand(String inputString, List<Command> commandList) {
+        //skip if no input was given
+        if (inputString == null) {
+            return new Result(true);
+        }
+
         for (Command command: commandList) {
             Pattern pattern = Pattern.compile(command.getPattern());
             Matcher matcher = pattern.matcher(inputString);

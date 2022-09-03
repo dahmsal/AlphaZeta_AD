@@ -48,7 +48,7 @@ public class ShipInit extends Interaction {
                 try {
                     newModule = (Module) parameter.getValue();
                 } catch (ClassCastException e) {
-                    return new Result(false, "could not parse parameter");
+                    return new Result(false, "could not parse parameter!");
                 }
                 try {
                     ShipConfigurator.addModule(this.fleet, this.shipID, newModule);
@@ -59,4 +59,5 @@ public class ShipInit extends Interaction {
         }
         return new Result(true);
     }
+
 }

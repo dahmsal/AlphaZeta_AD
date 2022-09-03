@@ -1,6 +1,6 @@
 package edu.kit.informatik;
 
-import edu.kit.informatik.game.AlphaZeta;
+import edu.kit.informatik.game.logic.AlphaZeta;
 import edu.kit.informatik.ui.Output;
 import edu.kit.informatik.ui.session.Session;
 import edu.kit.informatik.util.GameSettings;

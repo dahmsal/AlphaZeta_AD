@@ -1,5 +1,7 @@
 package edu.kit.informatik.game.resources.modules.support;
 
+import edu.kit.informatik.game.logic.actions.Action;
+import edu.kit.informatik.game.logic.actions.Mark;
 import edu.kit.informatik.game.resources.modules.Module;
 import edu.kit.informatik.game.resources.modules.ModuleType;
 
@@ -10,24 +12,19 @@ import java.util.List;
  * @author uppyo
  * @version 1.0
  */
-public class Sensor implements Module  {
+public class Sensor extends Module  {
     private static final String NAME = "SENSOR";
     private static final ModuleType TYPE = ModuleType.FLEET_UNIQUE;
-    private static final List<String> ACTIONS = List.of("MARK");
-    private boolean status;
 
     public Sensor() {
-        this.status = true;
+        super();
+        List<Action> actions = List.of(new Mark());
+        super.setActions(actions);
     }
 
     @Override
-    public String getName() {
+    public String toString() {
         return NAME;
-    }
-
-    @Override
-    public List<String> getActions() {
-        return ACTIONS;
     }
 
     @Override
@@ -35,16 +32,4 @@ public class Sensor implements Module  {
         return List.of(TYPE);
     }
 
-    @Override
-    public boolean isActive() {
-        return false;
-    }
-
-    public void activate() {
-        this.status = false;
-    }
-
-    public void reset() {
-        this.status = true;
-    }
 }
