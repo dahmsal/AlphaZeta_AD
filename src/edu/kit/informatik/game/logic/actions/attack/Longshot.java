@@ -1,11 +1,15 @@
 package edu.kit.informatik.game.logic.actions.attack;
 
 import edu.kit.informatik.game.logic.AlphaZeta;
-import edu.kit.informatik.game.logic.actions.Action;
 import edu.kit.informatik.game.logic.actions.misc.Target;
 import edu.kit.informatik.game.resources.fleet.Spaceship;
 import edu.kit.informatik.ui.Result;
 
+/**
+ * Longshot is a ranged attack with a chance to destroy two modules.
+ * @author uppyo
+ * @version 1.0
+ */
 public class Longshot extends Attack {
     private static final String NAME = "LONGSHOT";
     private static final int MAX_RANGE = 6;
@@ -16,6 +20,9 @@ public class Longshot extends Attack {
 
     private final AttackProperties attackProperties;
 
+    /**
+     * Initialise a longshot-action by setting the required and optional attack-properties
+     */
     public Longshot() {
         this.attackProperties = new AttackProperties(MIN_RANGE, MAX_RANGE, HIT_THROW);
         this.attackProperties.setCritThrow(CRIT_THROW);

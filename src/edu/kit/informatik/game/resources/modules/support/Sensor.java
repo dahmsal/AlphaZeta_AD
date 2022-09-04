@@ -16,6 +16,9 @@ public class Sensor extends Module  {
     private static final String NAME = "SENSOR";
     private static final ModuleType TYPE = ModuleType.FLEET_UNIQUE;
 
+    /**
+     * Initialise a Sensor by adding a new mark action to the actions list
+     */
     public Sensor() {
         super();
         List<Action> actions = List.of(new Mark());

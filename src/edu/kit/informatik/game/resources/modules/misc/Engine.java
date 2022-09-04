@@ -18,7 +18,7 @@ public class Engine extends Module {
     private static final ModuleType TYPE = ModuleType.MISC;
 
     /**
-     * Add the move action to the actions list
+     * Initialise an engine by adding a new move and ramm action to the actions list
      */
     public Engine() {
         super();

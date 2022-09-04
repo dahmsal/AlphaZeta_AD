@@ -23,7 +23,10 @@ public abstract class Interaction implements Parsable {
     @Override
     public abstract List<Parameter<?>> getParameters();
 
-    @Override
+    /**
+     * Execute the command and generate a result-object
+     * @return result of execution
+     */
     public abstract Result execute();
 
 }

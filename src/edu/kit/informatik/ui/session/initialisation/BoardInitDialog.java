@@ -9,20 +9,36 @@ import edu.kit.informatik.ui.interaction.BoardInit;
 import edu.kit.informatik.ui.interaction.Interaction;
 import edu.kit.informatik.ui.parser.ParameterParser;
 import edu.kit.informatik.ui.session.Dialog;
-import edu.kit.informatik.ui.session.Session;
 import edu.kit.informatik.util.exception.InputException;
 import edu.kit.informatik.util.strings.UtilStrings;
 
+/**
+ * This dialog handles the board-initialisation through a user-generated configuration. The dialog concludes after a
+ * valid board was configured. The BoardInit Interaction handles direct user interaction.
+ * @author uppyo
+ * @version 1.0
+ */
 public class BoardInitDialog extends Dialog {
     private final Interaction currentInteraction;
+    private final AlphaZeta game;
+
+    /**
+     * The dialog is initialised using the game and session.The BoardInit interaction is initialised.
+     * @param game current game, in configuration
+     */
+    public BoardInitDialog(AlphaZeta game) {
+        super();
+        this.currentInteraction = new BoardInit(game);
+        this.game = game;
+    }
 
     private String generateInitialMessage() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Use").append(UtilStrings.getWhitespace());
-        stringBuilder.append(TileTypes.FREE.toString()).append(" for free tiles;").append(UtilStrings.getWhitespace());
-        stringBuilder.append(TileTypes.HALF_COVER.toString()).append(UtilStrings.getComma())
-                .append(TileTypes.FULL_COVER.toString()).append(" for cover;").append(UtilStrings.getWhitespace());
-        for (Player player: super.getCurrentGame().getPlayers()) {
+        stringBuilder.append(TileTypes.FREE).append(" for free tiles;").append(UtilStrings.getWhitespace());
+        stringBuilder.append(TileTypes.HALF_COVER).append(UtilStrings.getComma())
+                .append(TileTypes.FULL_COVER).append(" for cover;").append(UtilStrings.getWhitespace());
+        for (Player player: this.game.getPlayers()) {
             stringBuilder.append(player.getFleet().getCollector().getId()).append(UtilStrings.getComma());
             for (Spaceship spaceship: player.getFleet().getAllBattleships()) {
                 stringBuilder.append(spaceship.getId()).append(UtilStrings.getComma());
@@ -31,11 +47,6 @@ public class BoardInitDialog extends Dialog {
         stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(UtilStrings.getComma()));
         stringBuilder.append(" for ships");
         return stringBuilder.toString();
-    }
-
-    public BoardInitDialog(AlphaZeta game, Session session) {
-        super(game, session);
-        this.currentInteraction = new BoardInit(game);
     }
 
     @Override

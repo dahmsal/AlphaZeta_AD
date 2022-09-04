@@ -1,29 +1,29 @@
 package edu.kit.informatik.ui.parameter;
 
 import edu.kit.informatik.game.resources.modules.Module;
-import edu.kit.informatik.game.resources.modules.misc.Engine;
 import edu.kit.informatik.game.resources.modules.support.Propulsion;
 import edu.kit.informatik.game.resources.modules.support.Sensor;
 import edu.kit.informatik.game.resources.modules.support.Shield;
 import edu.kit.informatik.game.resources.modules.weapons.RailGun;
 import edu.kit.informatik.game.resources.modules.weapons.Sword;
 import edu.kit.informatik.util.GameParam;
-import edu.kit.informatik.util.exception.ParameterException;
 import edu.kit.informatik.util.strings.UtilPatterns;
 import edu.kit.informatik.util.strings.UtilStrings;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The module-parameter creates a new module based on user-input. If new modules are added, the pattern has to be added
+ * here as well to enable parsing of the module.
+ * @author uppyo
+ * @version 1.0
+ */
 public class ModuleParameter implements Parameter<Module> {
     //ToDo: better dynamic solution for regex-pattern
     private static final List<String> MODULES = GameParam.gameModules();
 
     private Module value;
-
-    public ModuleParameter() {
-        this.value = null;
-    }
 
     @Override
     public String getPattern() {
@@ -70,11 +70,15 @@ public class ModuleParameter implements Parameter<Module> {
         return this.value != null;
     }
 
+    /**
+     * Returns a string-representation of all module-parameters included in the GameParams
+     * @return String listing of all registered modules
+     */
     public static String getModules() {
         List<String> modules = MODULES;
         modules = modules.stream().sorted().collect(Collectors.toList());
         return modules.toString().replaceAll("\\[", UtilStrings.getEmptyString())
-                .replaceAll("\\]", UtilStrings.getEmptyString());
+                .replaceAll("]", UtilStrings.getEmptyString());
     }
 
 

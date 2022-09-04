@@ -2,9 +2,19 @@ package edu.kit.informatik.util.strings;
 
 import java.util.List;
 
-public class UtilPatterns {
+/**
+ * Collection of useful pattern-generators
+ * @author uppyo
+ * @version 1.0
+ */
+public final class UtilPatterns {
     private UtilPatterns() { }
 
+    /**
+     * Get a regex-pattern matching a list of words
+     * @param listOfWords list of String, words that should be matched
+     * @return regex-pattern as String
+     */
     public static String getMultipleWordPattern(List<String> listOfWords) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -13,7 +23,8 @@ public class UtilPatterns {
             stringBuilder.append(module);
             stringBuilder.append("\\b|");
         }
-        stringBuilder.replace(stringBuilder.lastIndexOf("|"), stringBuilder.lastIndexOf("|") + 1, UtilStrings.getEmptyString());
+        stringBuilder.replace(stringBuilder.lastIndexOf("|"), stringBuilder.lastIndexOf("|") + 1,
+                UtilStrings.getEmptyString());
         return stringBuilder.toString();
     }
 }

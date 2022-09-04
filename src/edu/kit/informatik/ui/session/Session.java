@@ -11,7 +11,6 @@ import edu.kit.informatik.ui.command.EndTurnCommand;
 import edu.kit.informatik.ui.command.FleetCommand;
 import edu.kit.informatik.ui.command.Help;
 import edu.kit.informatik.ui.command.Quit;
-import edu.kit.informatik.ui.interaction.ShipAction;
 import edu.kit.informatik.ui.parser.CommandParser;
 import edu.kit.informatik.ui.session.gameplay.PlayerTurn;
 import edu.kit.informatik.ui.session.initialisation.BoardInitDialog;
@@ -28,7 +27,7 @@ import java.util.Scanner;
  */
 public class Session {
     private static final String WELCOME = "Welcome to AlphaZeta!";
-    protected AlphaZeta currentGame;
+    private final AlphaZeta currentGame;
     private final List<Command> commandList;
     private boolean running;
     private final Scanner scanner;
@@ -36,6 +35,7 @@ public class Session {
 
     /**
      * Initialise a session by setting "running" as true and adding the quit command
+     * @param currentGame currently active game
      */
     public Session(AlphaZeta currentGame) {
         this.running = true;
@@ -46,13 +46,9 @@ public class Session {
     }
 
     /**
-     * check if the session is running
-     * @return true if "running" was set
+     * Get the current dialog
+     * @return currently active dialog
      */
-    public boolean isRunning() {
-        return running;
-    }
-
     public Dialog getActiveDialog() {
         return activeDialog;
     }
@@ -71,11 +67,11 @@ public class Session {
         Output.printMessage(WELCOME);
         // initialise fleets
         for (Player player: this.currentGame.getPlayers()) {
-            this.activeDialog = new FleetInitDialog(player, this.currentGame, this);
+            this.activeDialog = new FleetInitDialog(player);
             runDialog();
         }
         //initialise board
-        this.activeDialog = new BoardInitDialog(currentGame, this);
+        this.activeDialog = new BoardInitDialog(currentGame);
         runDialog();
 
         //run the game
@@ -98,11 +94,11 @@ public class Session {
         if (this.running) {
             Output.printMessage(this.activeDialog.getInitialMessage());
         }
-        while (!activeDialog.isFinished() && this.running) {
-            Result inputResult = null;
+        while (activeDialog.isRunning() && this.running) {
+            Result inputResult;
             Output.printMessage(this.activeDialog.getDialogMessage());
             String userInput = null;
-            if(!activeDialog.isFinished()) {
+            if (activeDialog.isRunning()) {
                 userInput = this.scanner.nextLine();
             }
             inputResult = CommandParser.processCommand(userInput, this.commandList);
@@ -114,6 +110,10 @@ public class Session {
         }
     }
 
+    /**
+     * Set the currently active dialog
+     * @param activeDialog new active dialog
+     */
     public void setActiveDialog(Dialog activeDialog) {
         this.activeDialog = activeDialog;
     }

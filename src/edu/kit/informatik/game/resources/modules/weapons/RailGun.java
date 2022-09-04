@@ -16,8 +16,10 @@ public class RailGun extends Module {
     private static final String NAME = "RAILGUN";
     private static final ModuleType TYPE_A = ModuleType.WEAPON;
     private static final ModuleType TYPE_B = ModuleType.SHIP_UNIQUE;
-    private static final List<Action> ACTIONS = List.of(new Longshot());
 
+    /**
+     * Initialise a railgun by adding a new longshot action to the actions list
+     */
     public RailGun() {
         super();
         List<Action> actions = List.of(new Longshot());

@@ -1,12 +1,16 @@
 package edu.kit.informatik.ui.parameter;
 
-import edu.kit.informatik.game.logic.actions.Action;
 import edu.kit.informatik.util.GameParam;
 import edu.kit.informatik.util.strings.UtilPatterns;
 
 import java.util.List;
-import java.util.Locale;
 
+/**
+ * The action-parameter is used to parse user-inputs that call ship-actions. To make a action accessible to the user,
+ * the name of the action has to be added to the GameParam class.
+ * @author uppyo
+ * @version 1.0
+ */
 public class ActionParameter implements Parameter<String> {
     private static final List<String> ACTIONS = GameParam.gameActions();
 

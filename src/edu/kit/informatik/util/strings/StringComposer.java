@@ -5,9 +5,19 @@ import edu.kit.informatik.game.resources.modules.Module;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StringComposer {
+/**
+ * Util-Class contains methods to create String-representations
+ * @author uppyo
+ * @version 1.0
+ */
+public final class StringComposer {
     private StringComposer() { }
 
+    /**
+     * Print a list to a string, seperated by commas
+     * @param list input-list
+     * @return a string of all list-elements toString representations
+     */
     public static String listToString(List<?> list) {
         if (list.size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -22,6 +32,12 @@ public class StringComposer {
         else return null;
     }
 
+    /**
+     * Generate a destruction output message based on a given list of modules
+     * @param modules destroyed modules
+     * @param shipID name of the ship as char
+     * @return destruction output-message
+     */
     public static String destroyModuleOutput(List<Module> modules, char shipID) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Module module: modules) {

@@ -1,14 +1,14 @@
 package edu.kit.informatik.ui.parameter;
 
-import java.util.Locale;
 
+/**
+ * This parameter parses possible ship-names and generates char-objects
+ * @author uppyo
+ * @version 1.0
+ */
 public class ShipNameParameter implements Parameter<Character> {
-    private final static String PATTERN = "[A-Z]";
+    private static final String PATTERN = "[A-Z]";
     private Character value;
-
-    public ShipNameParameter() {
-        this.value = null;
-    }
 
     @Override
     public String getPattern() {

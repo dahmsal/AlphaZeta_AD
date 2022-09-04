@@ -45,12 +45,18 @@ public class Fleet {
         }
     }
 
+    /**
+     * Get a spaceship from the fleet
+     * @param id identifier as
+     * @return corresponding spaceship
+     * @throws ParameterException if the spaceship could not be found in the fleet
+     */
     public Spaceship getSpaceship(char id) throws ParameterException {
         Spaceship result = this.fleet.stream().filter(spaceship -> spaceship.getId() == id).findFirst().orElse(null);
         if (result != null) {
             return result;
         } else {
-            throw new ParameterException("Spaceship " + id + " could not be found");
+            throw new ParameterException("Spaceship " + id + " could not be found in the fleet!");
         }
     }
 
@@ -63,6 +69,10 @@ public class Fleet {
                 .map(spaceship-> (Battleship) spaceship).collect(Collectors.toList());
     }
 
+    /**
+     * Get all ships of the fleet as list
+     * @return list of spaceship-objects
+     */
     public List<Spaceship> getAllSpaceships() {
         return this.fleet;
     }
@@ -76,7 +86,7 @@ public class Fleet {
                 .map(spaceship -> (Collector) spaceship).findFirst().orElse(null);
     }
 
-
+    //dynamic fleet creation
     private void createFleet(char initLetter, char collectorID) throws ParameterException {
         for (int i = 0; i < GameParam.getFleetSize(); i++) {
             char id = (char) (initLetter + i);

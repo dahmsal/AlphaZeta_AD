@@ -12,19 +12,22 @@ import java.util.List;
  */
 public abstract class Module {
     private  List<Action> actions = List.of();
-    private static final String NAME = "default";
 
+    /**
+     * Set the actions field of a module
+     * @param actions list of actions to be set
+     */
     protected void setActions(List<Action> actions) {
         this.actions = actions;
     }
 
-    public Module() { }
     /**
      * Get the name of a module as a String
      * @return name as String
      */
     @Override
     public abstract String toString();
+
     /**
      * Get a list of all available actions of a module
      * @return actions as a string
@@ -39,6 +42,9 @@ public abstract class Module {
         return result;
     }
 
+    /**
+     * Reset a module by resetting all actions of the module.
+     */
     public void resetModule() {
         for (Action action: this.actions) {
             action.reset();

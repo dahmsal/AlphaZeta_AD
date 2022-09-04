@@ -6,6 +6,7 @@ import java.util.List;
 import edu.kit.informatik.ui.Parsable;
 import edu.kit.informatik.ui.parameter.Parameter;
 import edu.kit.informatik.ui.Result;
+
 /**
  * Description of a command
  * A command must have a regex-pattern and (optional) parameters and an execution-method
@@ -23,9 +24,17 @@ public abstract class Command implements Parsable {
     @Override
     public abstract List<Parameter<?>> getParameters();
 
-    @Override
+    /**
+     * Execute the command and generate a result-object
+     * @return result of execution
+     */
     public abstract Result execute();
 
+    /**
+     * Get the help-text of a command. A help-text must contain the pattern of the command as well as a
+     * short description
+     * @return help-text as String
+     */
     public abstract String getHelpText();
 
 }

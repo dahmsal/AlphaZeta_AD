@@ -2,15 +2,15 @@ package edu.kit.informatik.ui.parameter;
 
 import edu.kit.informatik.game.logic.actions.misc.Target;
 
+/**
+ * The target parameter is used to parses either a digit or a char to create an target object (either char or vector2D)
+ * @author uppyo
+ * @version 1.0
+ */
 public class TargetParameter implements Parameter<Target> {
     private static final String CHAR_TARGET = "[A-Z]|[a-z]";
     private static final String INT_TARGET = "\\d";
     private Target value;
-
-    public TargetParameter() {
-        this.value = null;
-        this.value = new Target();
-    }
 
     @Override
     public String getPattern() {

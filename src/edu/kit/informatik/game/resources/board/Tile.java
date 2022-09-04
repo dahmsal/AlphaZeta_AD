@@ -49,14 +49,6 @@ public class Tile {
     }
 
     /**
-     * Get the spaceship associated with tile (if a spaceship currently is on the tile)
-     * @return Spaceship-Object or null if no Spaceship is on the tile
-     */
-    public Spaceship getSpaceshipOnTile() {
-        return spaceshipOnTile;
-    }
-
-    /**
      * Associate a spaceship to a tile and set the tile-type accordingly
      * @param spaceship Spaceship-Object to be moved on the tile
      */

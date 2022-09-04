@@ -1,38 +1,53 @@
 package edu.kit.informatik.ui.interaction;
 
-import edu.kit.informatik.game.resources.fleet.Battleship;
 import edu.kit.informatik.game.resources.fleet.Fleet;
 import edu.kit.informatik.game.resources.fleet.ShipConfigurator;
 import edu.kit.informatik.game.resources.modules.Module;
 import edu.kit.informatik.ui.Result;
 import edu.kit.informatik.ui.parameter.ModuleParameter;
 import edu.kit.informatik.ui.parameter.Parameter;
+import edu.kit.informatik.util.GameParam;
 import edu.kit.informatik.util.exception.ParameterException;
 import edu.kit.informatik.util.strings.UtilStrings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Ship initialisation
+ * Ship initialisation is handled through this interaction. It takes up to MAX_MODULE_COUNT - 1, since an engine
+ * is mandatory one less module can be configured by the player, module-parameters and attempts to add them to a ship.
+ * If this fails a negative result, including a conclusive message, is returned.
+ * @author uppyo
+ * @version 1.0
  */
 public class ShipInit extends Interaction {
-    private static final String MESSAGE = "Choose upto 3 Modules for Ship PLACEHOLDER (seperated by comma):";
+    private static final String MESSAGE = "Choose upto NUMBER Modules for Ship PLACEHOLDER (seperated by comma):";
     private final Fleet fleet;
     private final char shipID;
     private final  List<Parameter<?>> parameters;
 
+    /**
+     * Initialise the interaction using the fleet of the ship that is configured and the id of the ship
+     * @param fleet fleet of ship that is to be configured
+     * @param id identifier of the ship
+     */
     public ShipInit(Fleet fleet, char id) {
         super();
         this.fleet = fleet;
         this.shipID = id;
-        this.parameters = List.of(new ModuleParameter(), new ModuleParameter(), new ModuleParameter());
+        this.parameters = new ArrayList<>();
+        for (int i = 1; i < GameParam.getMaxModuleCount(); i++) {
+            this.parameters.add(new ModuleParameter());
+        }
+
     }
 
 
     @Override
     public String getMessage() {
-        return MESSAGE.replaceAll("PLACEHOLDER", String.valueOf(shipID)) + UtilStrings.getLinebreak()
-                + ModuleParameter.getModules();
+        return MESSAGE.replaceAll("PLACEHOLDER", String.valueOf(shipID))
+                .replaceAll("NUMBER", String.valueOf(GameParam.getMaxModuleCount() - 1))
+                + UtilStrings.getLinebreak() + ModuleParameter.getModules();
     }
 
     @Override

@@ -15,6 +15,12 @@ import edu.kit.informatik.util.exception.ParameterException;
 
 import java.util.List;
 
+/**
+ * This interaction handles the user-driven activation of actions on spaceships. A action always has an acting ship,
+ * indicated by the shipNameParameter, an action indicated by the actionParameter and at least on targetParameter.
+ * @author uppyo
+ * @version 1.0
+ */
 public class ShipAction extends Interaction {
     private final List<Parameter<?>> parameters;
     private final AlphaZeta currentGame;
@@ -24,6 +30,11 @@ public class ShipAction extends Interaction {
     private final TargetParameter targetParameter = new TargetParameter();
     private Decider decider;
 
+    /**
+     * Initialise the interaction using the player who has the turn
+     * @param currentGame current game that is being played
+     * @param player Player who is playing in the current turn
+     */
     public ShipAction(AlphaZeta currentGame, Player player) {
         this.currentGame = currentGame;
         this.player = player;
@@ -66,7 +77,7 @@ public class ShipAction extends Interaction {
                 .findFirst().orElse(null);
         if (availableAction == null) {
             return new Result(false, "action: \"" + actionName
-                    + "\" is not available on " + actor.toString());
+                    + "\" is not available on " + actor);
         }
         Result result = availableAction.execute(this.currentGame, actor, this.targetParameter.getValue());
         // check if an attack was called and a decider is needed
@@ -76,17 +87,29 @@ public class ShipAction extends Interaction {
         return result;
     }
 
+    /**
+     * Get the help-text for the ship-action interaction
+     * @return help-text as String
+     */
     public static String getHelpText() {
         String result = "[SHIP] [ACTION] [X] [Y] - let [SHIP] perform [ACTION] on field (X,Y)\n";
-        result += result.replaceFirst("\\[X\\] \\[Y\\]", "[TARGET]")
+        result += result.replaceFirst("\\[X] \\[Y]", "[TARGET]")
                 .replaceFirst("field \\(X,Y\\)", "[TARGET]");
         return result;
     }
 
+    /**
+     * Check if the interaction has created a decider object. This happens if an attack-action is successfully called.
+     * @return true if a decider was created
+     */
     public boolean hasDecider() {
         return this.decider != null;
     }
 
+    /**
+     * Get the decider-object of a successful attack-action execution
+     * @return the decider-object or null if a decider was not created
+     */
     public Decider getDecider() {
         return this.decider;
     }

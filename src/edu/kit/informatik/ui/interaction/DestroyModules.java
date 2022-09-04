@@ -13,12 +13,24 @@ import edu.kit.informatik.util.strings.StringComposer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Interactive destruction of modules. This interaction determines if user input is required to select destroyed modules
+ * and creates appropriate outputs for the user. The the destruction is processed. If the interaction was not successful
+ * a negative Result is returned, with a conclusive message.
+ * @author uppyo
+ * @version 1.0
+ */
 public class DestroyModules extends Interaction {
-    private List<Module> relevantModules;
-    private Spaceship targetShip;
-    private List<Parameter<?>> parameters;
-    private int moduleCount;
+    private final List<Module> relevantModules;
+    private final Spaceship targetShip;
+    private final List<Parameter<?>> parameters;
+    private final int moduleCount;
 
+    /**
+     * Initialise the interaction using a decider-object. Decider-Objects are created when Attack-Actions are
+     * successfully executed
+     * @param decider decider-object detailing the destruction-process
+     */
     public DestroyModules(Decider decider) {
         this.relevantModules = new ArrayList<>();
         this.relevantModules.addAll(decider.getTargetShip().getModules());
@@ -45,7 +57,7 @@ public class DestroyModules extends Interaction {
     public Result execute() {
         List<Module> selectedModules = new ArrayList<>();
         //find selected modules on ship
-        for(Parameter<?> parameter: this.parameters) {
+        for (Parameter<?> parameter: this.parameters) {
             if (!parameter.hasValue()) {
                 return new Result(false, "please enter " +  this.moduleCount + " valid module(s)!");
             }

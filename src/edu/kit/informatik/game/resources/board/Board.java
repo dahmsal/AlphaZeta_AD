@@ -2,6 +2,7 @@ package edu.kit.informatik.game.resources.board;
 
 import edu.kit.informatik.game.resources.fleet.Spaceship;
 import edu.kit.informatik.util.exception.ParameterException;
+import edu.kit.informatik.util.math.Math;
 import edu.kit.informatik.util.math.Vector2D;
 import edu.kit.informatik.util.strings.UtilStrings;
 
@@ -54,7 +55,7 @@ public class Board {
     public boolean validateSymmetrical() {
         List<Tile> coverTiles = getCoverTiles();
         for (Tile coverTile: coverTiles) {
-            Tile mirroredTile = this.getTile(Vector2D.mirrorVector(coverTile.getPosition(), this.sideLength));
+            Tile mirroredTile = this.getTile(Math.mirrorVector(coverTile.getPosition(), this.sideLength));
             if (mirroredTile.getTileType() != coverTile.getTileType()) {
                 return false;
             }
@@ -72,7 +73,7 @@ public class Board {
         freeTiles.addAll(this.board.stream().filter(tile -> tile.getTileType().equals(TileTypes.SPACESHIP))
                 .collect(Collectors.toList()));
         for (Tile freeTile: freeTiles) {
-            for (Vector2D vector2D: Vector2D.getDirectNeighbors(freeTile.getPosition())) {
+            for (Vector2D vector2D: Math.getDirectNeighbors(freeTile.getPosition())) {
                 if (this.getTile(vector2D) != null) {
                     if (this.getTile(vector2D).getTileType().equals(TileTypes.FREE)) {
                         return true;
@@ -90,6 +91,7 @@ public class Board {
                 .collect(Collectors.toList()));
         return coverTiles;
     }
+
     /**
      * Get the Tile-Object on a specified position
      * @param position position as an Vector2D-Object

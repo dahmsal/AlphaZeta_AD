@@ -4,7 +4,6 @@ import edu.kit.informatik.game.logic.actions.Action;
 import edu.kit.informatik.game.logic.actions.Propel;
 import edu.kit.informatik.game.resources.modules.Module;
 import edu.kit.informatik.game.resources.modules.ModuleType;
-import edu.kit.informatik.util.math.Vector2D;
 
 import java.util.List;
 
@@ -17,6 +16,9 @@ public class Propulsion extends Module {
     private static final String NAME = "PROPULSION";
     private static final ModuleType TYPE = ModuleType.SHIP_UNIQUE;
 
+    /**
+     * Initialise a propulsion module by adding a new Propel action to the actions list
+     */
     public Propulsion() {
         super();
         List<Action> actions = List.of(new Propel());

@@ -18,9 +18,4 @@ public interface Parsable {
      */
     List<Parameter<?>> getParameters();
 
-    /**
-     * the execution-method of a interaction, generates an Result object
-     * @return Result (success or fail) and optional message
-     */
-    Result execute();
 }

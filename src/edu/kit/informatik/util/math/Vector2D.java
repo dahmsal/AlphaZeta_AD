@@ -1,33 +1,46 @@
 package edu.kit.informatik.util.math;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import static java.lang.Math.abs;
-
+/**
+ * Description of a two-dimensional vector. Used to indicate positions on the board for example.
+ * @author uppyo
+ * @version 1.0
+ */
 public class Vector2D {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
+    /**
+     * Create a new Vector using an x and y coordinate
+     * @param x int x-coordinate
+     * @param y int y-coordinate
+     */
     public Vector2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Get the x-coordinate of the vector
+     * @return as integer
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Get the y-coordinate of the vector
+     * @return as integer
+     */
     public int getY() {
         return y;
     }
 
-    public void setVector(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
+    /**
+     * Get a new vector-object using x and y coordinates
+     * @param x int x-coordinate
+     * @param y int y-coordinate
+     * @return a new Vector2D object
+     */
     public static Vector2D getVector(int x, int y) {
         return new Vector2D(x, y);
     }
@@ -39,49 +52,6 @@ public class Vector2D {
             return otherVector.x == this.x && otherVector.y == this.y;
         }
         return false;
-    }
-
-    /**
-     * Mirror a Vector on the sw-ne axis of the board
-     * @param vector2D a given 2d-vector
-     * @param boardLength side-length of the board
-     * @return mirrored vector as Vector2D
-     */
-    public static Vector2D mirrorVector(Vector2D vector2D, int boardLength) {
-        //get the max-id of a board axis
-        int maxID = boardLength - 1;
-        return getVector(maxID - vector2D.y, maxID - vector2D.x);
-    }
-
-    /**
-     * Get the direct neighbors of a vector as a list of vectors (North, East, South, West)
-     * @param vector2D Object of interest
-     * @return list of vectors (North, East, South, West) as Vector2D
-     */
-    public static List<Vector2D> getDirectNeighbors(Vector2D vector2D) {
-        List<Vector2D> vectorList = new ArrayList<>();
-        int x = vector2D.getX();
-        int y = vector2D.getY();
-        //North
-        vectorList.add(Vector2D.getVector(x, y - 1));
-        //East
-        vectorList.add(Vector2D.getVector(x + 1, y));
-        //South
-        vectorList.add(Vector2D.getVector(x, y + 1));
-        //West
-        vectorList.add(Vector2D.getVector(x - 1, y));
-        return  vectorList;
-    }
-
-    public static int manhattanDistance(Vector2D vectorA, Vector2D vectorB) {
-        int sum = 0;
-        sum += abs(vectorA.getX() - vectorB.getX());
-        sum += abs(vectorA.getY() - vectorB.getY());
-        return sum;
-    }
-
-    public static Vector2D subVector(Vector2D vectorA, Vector2D vectorB) {
-        return new Vector2D(vectorB.getX() - vectorA.getX(),  vectorB.getY() - vectorA.getY());
     }
 
 }

@@ -16,6 +16,9 @@ public class Sword extends Module {
     private static final String NAME = "SWORD";
     private static final ModuleType TYPE = ModuleType.WEAPON;
 
+    /**
+     * Initialise a sword by adding a new Strike action to the actions list
+     */
     public Sword() {
         super();
         List<Action> actions = List.of(new Strike());

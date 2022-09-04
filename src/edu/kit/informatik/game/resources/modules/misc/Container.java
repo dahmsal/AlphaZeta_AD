@@ -15,6 +15,9 @@ public class Container extends Module {
     private static final String NAME = "CONTAINER";
     private static final ModuleType TYPE = ModuleType.MISC;
 
+    /**
+     * Initialise a container by setting the available actions (which is none thus an empty list)
+     */
     public Container() {
         super();
         List<Action> actions = List.of();

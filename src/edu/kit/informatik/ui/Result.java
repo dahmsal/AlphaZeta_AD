@@ -2,9 +2,9 @@ package edu.kit.informatik.ui;
 
 /**
  * Result of a command-execution
- * Optional result message
+ * Optional: result message
  * @author uppyo
- * @version 1.0
+ * @version 1.1
  */
 public class Result {
 
@@ -23,7 +23,7 @@ public class Result {
     /**
      * Result with a message
      * @param success boolean is the execution a success
-     * @param resultMessage optional resultmessage
+     * @param resultMessage optional result-message
      */
     public Result(final boolean success, final String resultMessage) {
         this.success = success;

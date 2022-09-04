@@ -1,17 +1,23 @@
 package edu.kit.informatik.ui.parameter;
 
-import edu.kit.informatik.game.resources.board.Tile;
 import edu.kit.informatik.game.resources.board.TileTypes;
-import edu.kit.informatik.util.exception.ParameterException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The board-parameter is used to parse user-input board-configurations.
+ * @author uppyo
+ * @version 1.0
+ */
 public class BoardParameter implements Parameter<List<TileTypes>> {
     private static final String PATTERN = "(?i)[[.][a-d][w-z][1-2]]+";
     private List<TileTypes> value;
-    private List<Character> shipID;
+    private final List<Character> shipID;
 
+    /**
+     * Initialise the Parameter, internal fields are initialised.
+     */
     public BoardParameter() {
         this.value = null;
         this.shipID = new ArrayList<>();
@@ -48,6 +54,10 @@ public class BoardParameter implements Parameter<List<TileTypes>> {
         }
     }
 
+    /**
+     * Get a list of all ships that are added to the boards in order of appearance
+     * @return list of identifying chars corresponding to ships
+     */
     public List<Character> getShipID() {
         return shipID;
     }

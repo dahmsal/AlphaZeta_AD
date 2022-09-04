@@ -6,6 +6,12 @@ import edu.kit.informatik.game.resources.fleet.Spaceship;
 import edu.kit.informatik.ui.Result;
 import edu.kit.informatik.util.exception.ParameterException;
 
+/**
+ * The mark action targets an enemy ship and marks it for one turn. If the marked ship is successfully attacked, the
+ * attack is processed as a critical hit.
+ * @author uppyo
+ * @version 1.0
+ */
 public class Mark extends Action {
     private static final String NAME = "MARK";
 

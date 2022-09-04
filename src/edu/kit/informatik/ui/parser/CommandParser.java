@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * @author uppyo
  * @version 1.0
  */
-public class CommandParser {
+public final class CommandParser {
 
     private CommandParser() { }
 

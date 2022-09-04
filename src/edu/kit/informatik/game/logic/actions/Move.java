@@ -7,13 +7,18 @@ import edu.kit.informatik.game.resources.board.TileTypes;
 import edu.kit.informatik.game.resources.fleet.Spaceship;
 import edu.kit.informatik.ui.Result;
 import edu.kit.informatik.util.exception.ParameterException;
+import edu.kit.informatik.util.math.Math;
 import edu.kit.informatik.util.math.Vector2D;
 
+/**
+ * Move enables a spaceship to move up to three units. The target of a move-command is a location on the board.
+ * @author uppyo
+ * @version 1.0
+ */
 public class Move extends Action {
-    public static final String NAME = "MOVE";
-    private static final int RANGE = 3;
 
-    public Move() { }
+    private static final String NAME = "MOVE";
+    private static final int RANGE = 3;
 
     @Override
     public String getName() {
@@ -37,9 +42,9 @@ public class Move extends Action {
         } catch (ParameterException e) {
             return new Result(false, e.getMessage());
         }
-        if (Vector2D.manhattanDistance(shipTile.getPosition(), targetTile.getPosition()) > RANGE) {
+        if (Math.manhattanDistance(shipTile.getPosition(), targetTile.getPosition()) > RANGE) {
             return new Result(false, "cant reach target, the distance"
-                    + Vector2D.manhattanDistance(shipTile.getPosition(), targetTile.getPosition()) + "is too high!");
+                    + Math.manhattanDistance(shipTile.getPosition(), targetTile.getPosition()) + "is too high!");
         }
         //execute the command
         shipTile.setTileType(TileTypes.FREE);

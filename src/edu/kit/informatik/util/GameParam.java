@@ -2,7 +2,13 @@ package edu.kit.informatik.util;
 
 import java.util.List;
 
-public class GameParam {
+/**
+ * Collection of fixed game-parameters. If a module or action should be accessible by the user, it has to be registered
+ * here.
+ * @author uppyo
+ * @version 1.0
+ */
+public  final class GameParam {
 
     private static final int MAX_MODULE_COUNT = 4;
     private static final int MAX_WEAPON_COUNT = 2;
@@ -35,10 +41,18 @@ public class GameParam {
         return FLEET_SIZE;
     }
 
+    /**
+     * List of all accessible modules
+     * @return String list of module-names
+     */
     public static List<String> gameModules() {
         return List.of("RAILGUN", "SWORD", "SHIELD", "SENSOR", "PROPULSION");
     }
 
+    /**
+     * List of all accessible actions
+     * @return Sting list of action-names
+     */
     public static List<String> gameActions() {
         return List.of("MOVE", "PROPEL", "STRIKE", "MARK", "RAMM", "LONGSHOT");
     }

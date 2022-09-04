@@ -9,10 +9,21 @@ import edu.kit.informatik.ui.parameter.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This interaction handles the user driven configuration of the board. It takes a board-configuration as parameter and
+ * attempts to create a board using the parameter. If the creation was not successful a Result with conclusive
+ * error - message is returned.
+ * @author uppyo
+ * @version 1.0
+ */
 public class BoardInit extends Interaction {
     private final BoardParameter boardParam;
     private final AlphaZeta currentGame;
 
+    /**
+     * Initialise the interaction using the current game.
+     * @param currentGame game that is currently played
+     */
     public BoardInit(AlphaZeta currentGame) {
         this.boardParam = new BoardParameter();
         this.currentGame = currentGame;

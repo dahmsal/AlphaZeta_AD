@@ -17,22 +17,38 @@ import edu.kit.informatik.util.strings.StringComposer;
 import edu.kit.informatik.util.strings.UtilStrings;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This Dialog handles the attack-processing after an attack was called. Using a decider-object the dialog will
+ * determine if user-selection of modules is necessary and trigger an DestroyModules interaction. Then the modules
+ * will be destroyed and an corresponding message will be generated. If a ship will be destroyed, it will be flagged and
+ * removed from the board. If the destruction leads to a winning game, the winning message will be displayed and the
+ * session will be terminated using the quit command. Otherwise the player-turn will continue
+ * @author uppyo
+ * @version 1.0
+ */
 public class ProcessAttack extends Dialog {
-    private Decider decider;
+    private final Decider decider;
     private boolean choiceIsNeeded;
-    private List<Module> destroyedModules;
-    private Session session;
-    private PlayerTurn currentTurn;
-    private AlphaZeta game;
+    private final List<Module> destroyedModules;
+    private final Session session;
+    private final PlayerTurn currentTurn;
+    private final AlphaZeta game;
     private Interaction interaction;
 
+    /**
+     * The attack-processing requires a valid decider-object. If a player-choice is needed, the choiceIsNeeded flag will
+     * be raised.
+     * @param decider Decider, detailing the deciding player, destroyed modules and target-ship
+     * @param game current game
+     * @param session current session, so it can be immediately terminated when the game is over
+     * @param currentTurn current PlayerTurn Dialog
+     */
     public ProcessAttack(Decider decider, AlphaZeta game, Session session, PlayerTurn currentTurn) {
-        super(game, session);
+        super();
         this.decider = decider;
         this.session = session;
         this.game = game;
@@ -41,7 +57,7 @@ public class ProcessAttack extends Dialog {
         this.destroyedModules = new ArrayList<>();
         //check if a choice is needed: total module count <= destroyed modules
         //  -> only one unique module-type (excluding engine)
-        Set<Class<? extends Module>> uniqueModuleTypes = new HashSet<>();
+        Set<Class<? extends Module>> uniqueModuleTypes;
         uniqueModuleTypes = this.decider.getTargetShip().getModules().stream()
                 .map(Module::getClass).collect(Collectors.toSet());
         uniqueModuleTypes.remove(Engine.class);
@@ -129,7 +145,7 @@ public class ProcessAttack extends Dialog {
     private void destroyShip() throws ParameterException {
         List<Module> shipModules = new ArrayList<>(this.decider.getTargetShip().getModules());
         for (Module module: shipModules) {
-                this.destroyedModules.add(this.decider.getTargetShip().destroyModule(module));
+            this.destroyedModules.add(this.decider.getTargetShip().destroyModule(module));
         }
         this.decider.getTargetShip().destroy();
         this.game.getBoard().findSpaceship(this.decider.getTargetShip()).removeSpaceship();
